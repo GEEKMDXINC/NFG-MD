@@ -6,6 +6,7 @@ jidNormalizedUser,
 getContentType,
 fetchLatestBaileysVersion,
 makeCacheableSignalKeyStore, 
+makeInMemoryStore,
 Browsers
 } = require('@whiskeysockets/baileys')
 

@@ -44,7 +44,9 @@ async function connectToWA() {
 console.log("Connecting WhatsApp bot 🧬...");
 const { state, saveCreds } = await useMultiFileAuthState(__dirname + '/auth_info_baileys/')
 var { version } = await fetchLatestBaileysVersion()
-
+const store = makeInMemoryStore({ logger: pino().child({ level: "silent", stream: "store"
+  })
+});
 const conn = makeWASocket({
     logger: P({ level: 'silent' }),
         printQRInTerminal: false,
@@ -55,7 +57,16 @@ const conn = makeWASocket({
             creds: state.creds,
             keys: makeCacheableSignalKeyStore(state.keys, P({ level: "fatal" }).child({ level: "fatal" }))
         },
-        version
+        version, 
+       getMessage: async (key) => {
+                if (store) {
+                    const mek = await store.loadMessage(key.remoteJid, key.id, undefined);
+                    return mek.message || undefined;
+                }
+                return {
+                    conversation: 'An Error Occurred, Repeat Command!'
+                };
+       }
 });
 conn.ev.on('connection.update', (update) => {
 const { connection, lastDisconnect } = update

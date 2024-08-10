@@ -29,7 +29,7 @@ if (!fs.existsSync(__dirname + '/auth_info_baileys/creds.json')) {
 if(!config.SESSION_ID) return console.log('Please add your session to SESSION_ID env !!')
 const session = config.SESSION_ID
 const decodedSession = decodeBase64(session);
-await fs.writeFileSync(__dirname + '/auth_info_baileys/creds.json', decodedSession, 'utf8');
+fs.writeFileSync(__dirname + '/auth_info_baileys/creds.json', decodedSession, 'utf8');
 console.log("Session saved ✅")
 }
 

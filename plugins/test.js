@@ -44,38 +44,43 @@ cmd({
         }
     })
 
- //==================================================
+ //================================================
 
-
-
-
-const { cmd } = require('../command');
-const os = require('os');
+const {
+    cmd
+} = require('../command');
+const {
+    runtime
+} = require('../lib/functions');
 
 cmd({
-    pattern: "alive",
-    react: "💡",
-    desc: "Afficher les informations du bot et votre nom SLG",
+    pattern: "uptime",
+    react: "⏱️",
+    desc: "Check bot's uptime",
     category: "other",
-    use: '.alive',
+    use: '.uptime',
     filename: __filename
 },
-async (conn, mek, m, { from, reply }) => {
+async (conn, mek, m, {
+    from,
+    reply
+}) => {
     try {
-        // Obtenir les informations sur le système d'exploitation
-        const osInfo = `${os.type()} ${os.release()}`;
+        let totalSeconds = runtime();
+        let days = Math.floor(totalSeconds / 86400);
+        let hours = Math.floor((totalSeconds % 86400) / 3600);
+        let minutes = Math.floor((totalSeconds % 3600) / 60);
+        let seconds = Math.floor(totalSeconds % 60);
 
-        // Votre nom SLG
-        const yourName = "Votre nom SLG";
+        let uptimeMsg = `*Uptime*: ${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds`;
 
-        // Envoyer les informations du bot et votre nom SLG
-        return await conn.sendMessage(from, `
-            *Informations du Bot*:
-            - Système d'exploitation: ${osInfo}
-            - Créateur du Bot: ${yourName}
-        `, { quoted: mek });
+        return await conn.sendMessage(from, {
+            text: uptimeMsg
+        }, {
+            quoted: mek
+        });
     } catch (e) {
-        reply('*Erreur lors de l\'exécution de la commande alive!*');
+        reply('*Error !!*');
         console.log(e);
     }
 });

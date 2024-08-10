@@ -44,43 +44,4 @@ cmd({
         }
     })
 
- //================================================
-
-const {
-    cmd
-} = require('../command');
-const {
-    runtime
-} = require('../lib/functions');
-
-cmd({
-    pattern: "uptime",
-    react: "⏱️",
-    desc: "Check bot's uptime",
-    category: "other",
-    use: '.uptime',
-    filename: __filename
-},
-async (conn, mek, m, {
-    from,
-    reply
-}) => {
-    try {
-        let totalSeconds = runtime();
-        let days = Math.floor(totalSeconds / 86400);
-        let hours = Math.floor((totalSeconds % 86400) / 3600);
-        let minutes = Math.floor((totalSeconds % 3600) / 60);
-        let seconds = Math.floor(totalSeconds % 60);
-
-        let uptimeMsg = `*Uptime*: ${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds`;
-
-        return await conn.sendMessage(from, {
-            text: uptimeMsg
-        }, {
-            quoted: mek
-        });
-    } catch (e) {
-        reply('*Error !!*');
-        console.log(e);
-    }
-});
+ 

@@ -45,7 +45,7 @@ async function connectToWA() {
 console.log("Connecting WhatsApp bot 🧬...");
 const { state, saveCreds } = await useMultiFileAuthState(__dirname + '/auth_info_baileys/')
 var { version } = await fetchLatestBaileysVersion()
-const store = makeInMemoryStore({ logger: pino().child({ level: "silent", stream: "store"
+const store = makeInMemoryStore({ logger: P().child({ level: "silent", stream: "store"
   })
 });
 const conn = makeWASocket({

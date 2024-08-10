@@ -45,17 +45,14 @@ const { state, saveCreds } = await useMultiFileAuthState(__dirname + '/auth_info
 var { version } = await fetchLatestBaileysVersion()
 
 const conn = makeWASocket({
-        logger: P({ level: 'silent' }),
+    logger: P({ level: 'silent' }),
         printQRInTerminal: false,
         browser: Browsers.macOS("Firefox"),
         syncFullHistory: true,
         generateHighQualityLinkPreview: true,
-        creds: state.creds,
-            keys: makeCacheableSignalKeyStore(state.keys, pino({ level: "fatal" }).child({ level: "fatal" }))
-        },
+        creds: state,
         version
-        })
-    
+});
 conn.ev.on('connection.update', (update) => {
 const { connection, lastDisconnect } = update
 if (connection === 'close') {

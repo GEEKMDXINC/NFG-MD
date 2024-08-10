@@ -5,6 +5,7 @@ DisconnectReason,
 jidNormalizedUser,
 getContentType,
 fetchLatestBaileysVersion,
+makeCacheableSignalKeyStore, 
 Browsers
 } = require('@whiskeysockets/baileys')
 
@@ -50,7 +51,10 @@ const conn = makeWASocket({
         browser: Browsers.macOS("Firefox"),
         syncFullHistory: true,
         generateHighQualityLinkPreview: true,
-        creds: state,
+        auth: {
+            creds: state.creds,
+            keys: makeCacheableSignalKeyStore(state.keys, pino({ level: "fatal" }).child({ level: "fatal" }))
+        },
         version
 });
 conn.ev.on('connection.update', (update) => {

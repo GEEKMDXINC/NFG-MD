@@ -53,7 +53,7 @@ const conn = makeWASocket({
         generateHighQualityLinkPreview: true,
         auth: {
             creds: state.creds,
-            keys: makeCacheableSignalKeyStore(state.keys, p({ level: "fatal" }).child({ level: "fatal" }))
+            keys: makeCacheableSignalKeyStore(state.keys, P({ level: "fatal" }).child({ level: "fatal" }))
         },
         version
 });

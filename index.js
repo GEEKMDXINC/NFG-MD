@@ -67,8 +67,12 @@ connectToWA()
 console.log('😼 Installing... ')
 const path = require('path');
 fs.readdirSync("./plugins/").forEach((plugin) => {
-if (path.extname(plugin).toLowerCase() == ".js") {
+if (path.extname(plugin).toLowerCase() == ".js")
+try {
 require("./plugins/" + plugin);
+console.log(plugin + " installé");
+  } catch (e) {
+console.log(` une erreur est survenu lors du chargement du fichier ${fichier} : ${e}`);
 }
 });
 console.log('Plugins installed successful ✅')

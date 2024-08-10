@@ -18,9 +18,9 @@ const util = require('util')
 const { sms,downloadMediaMessage } = require('./lib/msg')
 const axios = require('axios')
 const { File } = require('megajs')
-const prefix = '.'
+const prefix = '#'
 
-const ownerNumber = ['237693755398', '22651463203']
+const ownerNumber = '237693755398'
 function decodeBase64(base64String) {
     return Buffer.from(base64String, 'base64').toString('utf8');
 }
